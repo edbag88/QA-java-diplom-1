@@ -4,8 +4,10 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 import praktikum.*;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.when;
@@ -13,10 +15,12 @@ import static org.mockito.Mockito.when;
 @RunWith(MockitoJUnitRunner.class)
 public class BurgerTest {
     private Burger burger;
+
     @Before
     public void setUp() {
         burger = new Burger();
     }
+
     @Mock
     private Bun bun;
     @Mock
@@ -27,24 +31,27 @@ public class BurgerTest {
     private List<Ingredient> ingredients = new ArrayList<>();
     @Mock
     private Database db;
+
     @Test
-    public void addIngredientTest(){
+    public void addIngredientTest() {
         burger.addIngredient(ingredient);
         int expectedSize = 1;
         int actualSize = burger.ingredients.size();
-        assertEquals("Неверное количество ингредиентов!",expectedSize, actualSize);
+        assertEquals("Неверное количество ингредиентов!", expectedSize, actualSize);
 
     }
+
     @Test
-    public void removeIngredientTest(){
+    public void removeIngredientTest() {
         burger.addIngredient(ingredient);
         burger.removeIngredient(0);
         int expectedSize = 0;
         int actualSize = burger.ingredients.size();
         assertEquals("Не удалось удалить ингредиент!", expectedSize, actualSize);
     }
+
     @Test
-    public void moveIngredientTest(){
+    public void moveIngredientTest() {
         burger.addIngredient(ingredient);
         int currentIndex = burger.ingredients.indexOf(ingredient);
         int newIndex = 0;
@@ -52,18 +59,20 @@ public class BurgerTest {
         assertEquals("Не удалось переместить ингредиент!", burger.ingredients.size(), 1);
         assertEquals(burger.ingredients.indexOf(ingredient), newIndex);
     }
+
     @Test
-    public void getPriceTest(){
+    public void getPriceTest() {
         burger.setBuns(bun);
         burger.addIngredient(ingredient);
         when(bun.getPrice()).thenReturn(100f);
         when(ingredient.getPrice()).thenReturn(300f);
         float expectedPrice = 500;
         float actualPrice = burger.getPrice();
-        assertEquals("Некорректная цена бургера!",expectedPrice, actualPrice, 0);
+        assertEquals("Некорректная цена бургера!", expectedPrice, actualPrice, 0);
     }
+
     @Test
-    public void getReceiptTest(){
+    public void getReceiptTest() {
         burger.setBuns(bun);
         when(bun.getName()).thenReturn("red bun");
         when(bun.getPrice()).thenReturn(100f);
@@ -75,6 +84,7 @@ public class BurgerTest {
         String actualReceipt = burger.getReceipt();
         assertEquals("Состав рецепта неверный!", expectedReceipt, actualReceipt);
     }
+
     @Test
     public void databaseTest() {
         buns.add(new Bun("black bun", 100));

@@ -7,9 +7,11 @@ import praktikum.IngredientType;
 @RunWith(Parameterized.class)
 public class IngredientTypeTest {
     private final String expIngredientType;
+
     public IngredientTypeTest(String expIngredientType) {
         this.expIngredientType = expIngredientType;
     }
+
     @Parameterized.Parameters(name = "{0},{1}")
     public static Object[][] testData() {
         return new Object[][]{
@@ -17,6 +19,7 @@ public class IngredientTypeTest {
                 {"FILLING"},
         };
     }
+
     @Test
     public void ingredientTypeTest() {
         Assert.assertEquals(expIngredientType, IngredientType.valueOf(expIngredientType).toString());
